@@ -1,0 +1,63 @@
+'use client';
+
+import { useAuth } from '@/hooks/useAuth';
+import { useStocks } from '@/hooks/useStocks';
+import { Avatar } from '@/components/ui';
+import { motion } from 'framer-motion';
+
+export function AdminTopbar({ title }: { title?: string }) {
+  const { user } = useAuth();
+  const { isSimulating, lastTickAt } = useStocks();
+
+  return (
+    <header className="h-16 flex items-center justify-between px-6 border-b shrink-0"
+      style={{ background: 'rgba(7,11,20,0.8)', borderColor: 'var(--admin-border)', backdropFilter: 'blur(12px)' }}>
+
+      <div className="flex items-center gap-4">
+        <h1 className="text-lg font-bold" style={{ color: 'var(--admin-text)' }}>
+          {title ?? 'Admin Dashboard'}
+        </h1>
+      </div>
+
+      <div className="flex items-center gap-4">
+        {/* Market status indicator */}
+        <motion.div
+          className="flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-medium"
+          style={{
+            background: isSimulating ? 'rgba(0,255,136,0.08)' : 'rgba(255,68,85,0.08)',
+            borderColor: isSimulating ? 'rgba(0,255,136,0.25)' : 'rgba(255,68,85,0.25)',
+            color: isSimulating ? 'var(--admin-green)' : 'var(--admin-red)',
+          }}
+        >
+          <motion.span
+            className="w-1.5 h-1.5 rounded-full"
+            style={{ background: isSimulating ? 'var(--admin-green)' : 'var(--admin-red)' }}
+            animate={{ opacity: isSimulating ? [1, 0.3, 1] : 1 }}
+            transition={{ duration: 1.5, repeat: Infinity }}
+          />
+          {isSimulating ? 'Market Live' : 'Market Paused'}
+        </motion.div>
+
+        {/* Last tick time */}
+        <div className="hidden sm:flex items-center gap-1.5 text-xs" style={{ color: 'var(--admin-muted)' }}>
+          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+              d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          {new Date(lastTickAt).toLocaleTimeString()}
+        </div>
+
+        {/* User */}
+        {user && (
+          <div className="flex items-center gap-2">
+            <Avatar initials={user.avatarInitials} size="sm" />
+            <div className="hidden sm:block text-xs" style={{ color: 'var(--admin-subtext)' }}>
+              <div className="font-medium" style={{ color: 'var(--admin-text)' }}>{user.username}</div>
+              <div className="gradient-text-cyan font-semibold">Administrator</div>
+            </div>
+          </div>
+        )}
+      </div>
+    </header>
+  );
+}
