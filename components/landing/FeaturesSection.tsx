@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 
 const FEATURES = [
@@ -12,9 +13,18 @@ const FEATURES = [
 ];
 
 const TOOLS = [
-  'ROI Calculator', 'Portfolio Tracker', 'Net Worth Chart', 'Sector Heatmap',
-  'Stock Screener', 'Price Alerts', 'Transaction History', 'Allocation Chart',
-  'Market Movers', 'Watchlist Manager', 'P&L Analyzer', 'Risk Assessment',
+  { name: 'ROI Calculator', href: '/tools/roi-calculator' },
+  { name: 'Portfolio Tracker', href: '/portfolio' },
+  { name: 'Net Worth Chart', href: '/dashboard' },
+  { name: 'Sector Heatmap', href: '/tools/sector-heatmap' },
+  { name: 'Stock Screener', href: '/tools/stock-screener' },
+  { name: 'Price Alerts', href: '/tools/price-alerts' },
+  { name: 'Transaction History', href: '/transactions' },
+  { name: 'Allocation Chart', href: '/portfolio' },
+  { name: 'Market Movers', href: '/dashboard' },
+  { name: 'Watchlist Manager', href: '/dashboard' },
+  { name: 'P&L Analyzer', href: '/tools/pnl-analyzer' },
+  { name: 'Risk Assessment', href: '/tools/risk-assessment' },
 ];
 
 const containerVariants = { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.1 } } };
@@ -55,13 +65,15 @@ export function FeaturesSection() {
 
           <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
             {TOOLS.map((tool) => (
-              <motion.div key={tool} variants={itemVariants} className="bg-[var(--bg-1)] rounded-xl border border-[var(--border-color)] p-5 text-center hover:border-teal-500/30 transition-all cursor-default group">
-                <div className="w-11 h-11 rounded-xl bg-[var(--bg-0)] border border-[var(--border-color)] flex items-center justify-center mx-auto mb-3 group-hover:border-teal-500/30 transition-colors">
-                  <svg className="w-5 h-5 text-[var(--text-muted)] group-hover:text-teal-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                  </svg>
-                </div>
-                <div className="text-sm font-semibold text-[var(--text-secondary)] group-hover:text-teal-500 transition-colors">{tool}</div>
+              <motion.div key={tool.name} variants={itemVariants}>
+                <Link href={tool.href} className="block bg-[var(--bg-1)] rounded-xl border border-[var(--border-color)] p-5 text-center hover:border-teal-500/30 transition-all group hover:-translate-y-1">
+                  <div className="w-11 h-11 rounded-xl bg-[var(--bg-0)] border border-[var(--border-color)] flex items-center justify-center mx-auto mb-3 group-hover:border-teal-500/30 transition-colors">
+                    <svg className="w-5 h-5 text-[var(--text-muted)] group-hover:text-teal-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                  <div className="text-sm font-semibold text-[var(--text-secondary)] group-hover:text-teal-500 transition-colors">{tool.name}</div>
+                </Link>
               </motion.div>
             ))}
           </motion.div>
