@@ -1,6 +1,19 @@
+import Link from 'next/link';
+
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-[var(--bg-1)]">
+    <div className="min-h-screen flex items-center justify-center p-4 bg-[var(--bg-1)] relative">
+      {/* Back Button — top-left */}
+      <Link
+        href="/"
+        className="fixed top-6 left-6 z-50 flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[var(--bg-0)] border border-[var(--border-color)] text-[var(--text-primary)] hover:border-brand-500 hover:text-brand-500 transition-all shadow-lg text-sm font-medium"
+      >
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        Home
+      </Link>
+
       <div className="w-full max-w-md">
         {/* Brand */}
         <div className="flex items-center justify-center gap-2.5 mb-8">
