@@ -13,6 +13,7 @@ const navItems = [
   { href: '/transactions', label: 'Transactions' },
   { href: '/leaderboard', label: 'Leaderboard' },
   { href: '/learn', label: 'Learn' },
+  { href: '/tools', label: 'Tools' },
 ];
 
 export function MobileNav() {
